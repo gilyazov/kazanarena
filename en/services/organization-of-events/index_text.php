@@ -1,0 +1,2 @@
+<p>Kazan Arena stadium has a great potential to organize business and holiday events: conferences, seminars, trainings, exhibitions, presentations, promo-actions and advertising shoots, award ceremonies, corporate and private events.</p>
+<p>We have all the resources for holding both small cozy and grand lush events.</p>

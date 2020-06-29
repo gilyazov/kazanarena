@@ -1,0 +1,11 @@
+<?
+$PERM["arena-study"]["2"]="D";
+$PERM["arena-study"]["3"]="D";
+$PERM["arena-study"]["4"]="D";
+$PERM["_katok-nefis"]["2"]="R";
+$PERM["/"]["5"]="W";
+$PERM["/"]["*"]="R";
+$PERM["calendar"]["2"]="R";
+$PERM["en"]["2"]="R";
+$PERM["test"]["2"]="D";
+?>

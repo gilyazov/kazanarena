@@ -1,0 +1,39 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Новости", 
+		"/media/news/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Фото", 
+		"/media/photo/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Arena Life", 
+		"/media/life/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Видео", 
+		"/media/video/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Instagram", 
+		"https://www.instagram.com/akbars_arena/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

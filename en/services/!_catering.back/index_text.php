@@ -1,0 +1,2 @@
+<p>Restaurants of the Kazan Arena will cater your event for up to 3000 guests at the place of your choice. </p>
+<p>Our resources allow us to provide you not only with great food, but also with furniture,tableware and textiles.</p>

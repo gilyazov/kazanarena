@@ -1,0 +1,2 @@
+<div><img src="/upload/medialibrary/7b1/7b1fd09e1437e34a77d0682216894496.jpg" alt="Каток Нэфис" width="460" height="345"  /></div>
+<div><img src="/upload/medialibrary/a67/a67d5b70063149afbc0e81b96c4f6efb.jpg" alt="Каток Нэфис" width="460" height="345"  /></div>

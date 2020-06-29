@@ -1,0 +1,1 @@
+<img src="/bitrix/templates/ka/images/eco.jpg" height="400" width="1040">

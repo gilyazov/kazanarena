@@ -1,0 +1,1 @@
+<p>There are currently no open vacancies at the Kazan Arena. Если вы&nbsp;хотите работать в&nbsp;&laquo;Казань Арене&raquo;, заполните анкету. Мы&nbsp;свяжемся с&nbsp;вами, как только появятся подходящие вакансии.</p>

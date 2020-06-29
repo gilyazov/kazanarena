@@ -1,0 +1,32 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Stadium", 
+		"/en/stadium/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Services", 
+		"/en/services/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Media", 
+		"/en/media/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Contacts", 
+		"/en/contacts/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

@@ -1,0 +1,5 @@
+<figure> <figcaption class="shBlock2">Площадь</figcaption>
+Площадь медиафасада 3700 м.кв., трансляция осуществляется в&nbsp;HD-качестве </figure> <figure> <figcaption class="shBlock2 purple">Расположение</figcaption>
+Медиафасад расположен на&nbsp;пересечении ключевых транспортных магистралей Казани, дальность восприятия информации 2-3&nbsp;км, трафик более 340&nbsp;000 человек в&nbsp;сутки. </figure> <figure> <figcaption class="shBlock2 green">Количество мероприятий</figcaption>
+На&nbsp;территории стадиона&nbsp;в&nbsp;год проходит более 100 культурно-массовых мероприятий федерального и&nbsp;международного значения, которые посещают более 1&nbsp;000&nbsp;000&nbsp;гостей. </figure> <figure> <figcaption class="shBlock2 pink2">Аудитория</figcaption>
+В&nbsp;рамках футбольного сезона, на&nbsp;стадионе проходит до&nbsp;20&nbsp;матчей, аудитория одного матчевого дня 15000&nbsp;— 45000&nbsp;человек. </figure>

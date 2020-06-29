@@ -1,0 +1,3 @@
+<?
+$sSectionName="Kazan Arena Live";
+?>

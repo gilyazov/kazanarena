@@ -1,0 +1,6 @@
+<?
+$sSectionName = "Кейтеринг";
+$arDirProperties = array(
+
+);
+?>

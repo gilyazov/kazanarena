@@ -1,0 +1,46 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Стадион", 
+		"/stadium/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Услуги", 
+		"/services/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Медиа", 
+		"/media/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Business Arena", 
+		"/business-arena/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Arena Family", 
+		"/in-joy-arena/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Медиафасад", 
+		"/services/mediafasad/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

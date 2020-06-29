@@ -1,0 +1,46 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Аренда", 
+		"/services/rentals/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Организация мероприятий", 
+		"/services/organization-of-events/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Кейтеринг", 
+		"/services/catering/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Конференц-услуги", 
+		"/services/conference/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Медиафасад", 
+		"/services/mediafasad/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Купить билет на матч", 
+		"https://tickets.rubin-kazan.ru/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>
