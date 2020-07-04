@@ -1,3 +1,4 @@
+<img src="/upload/medialibrary/fca/fca0baca3bac344606d2869898c94bb0.png" class="pay-logo" alt="">
 <p>
 	Во внематчевые дни экскурсионные туры по стадиону&nbsp;доступны поклонникам футбола, всем жителям и гостям Казани.
 </p>

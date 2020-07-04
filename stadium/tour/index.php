@@ -33,16 +33,25 @@ $APPLICATION->SetTitle("Тур по стадиону");
  </div>
  
 <div class="advBens advBensStand"> 	 	 
-  <h2>тур по стадиону</h2>
- <?$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	Array(
-		"AREA_FILE_SHOW" => "page",
-		"AREA_FILE_SUFFIX" => "standart",
-		"EDIT_TEMPLATE" => ""
-	)
-);?> </div>
+    <h2>тур по стадиону</h2>
+    <?$APPLICATION->IncludeComponent(
+        "bitrix:main.include",
+        ".default",
+        Array(
+            "AREA_FILE_SHOW" => "page",
+            "AREA_FILE_SUFFIX" => "standart",
+            "EDIT_TEMPLATE" => ""
+        )
+    );?>
+</div>
+
+<?$APPLICATION->IncludeComponent(
+    "gilyazov:tour.order",
+    ".default",
+    Array(
+
+    )
+);?>
  <? /*
 <div class="advBens right"> 	
 <h2>VIP-тур</h2>

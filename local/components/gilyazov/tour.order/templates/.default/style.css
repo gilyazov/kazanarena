@@ -1,0 +1,9 @@
+#article article{
+    position: relative;
+}
+.pay-logo{
+    height: 45px;
+    position: absolute;
+    right: 0;
+    top: 25px;
+}

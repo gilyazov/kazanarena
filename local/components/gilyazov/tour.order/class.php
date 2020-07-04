@@ -4,17 +4,26 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
     die();
 }
 
-/*1. форма сбора контактной информации
-2. подключение юнителлера
-3. подключения каталога к клиенту*/
-
 use \Bitrix\Main\Localization\Loc;
 use \Bitrix\Main\Loader;
 use \Bitrix\Sale\Delivery;
 use \Bitrix\Sale\PaySystem;
+use \Bitrix\Main\Engine\Contract\Controllerable;
 
-class TourOrderComponent extends CBitrixComponent
+class TourOrderComponent extends CBitrixComponent implements Controllerable
 {
+    // Обязательный метод
+    public function configureActions()
+    {
+        // Сбрасываем фильтры по-умолчанию (ActionFilter\Authentication и ActionFilter\HttpMethod)
+        // Предустановленные фильтры находятся в папке /bitrix/modules/main/lib/engine/actionfilter/
+        return [
+            'sendMessage' => [ // Ajax-метод
+                'prefilters' => [],
+            ],
+        ];
+    }
+
     /**
      * @var \Bitrix\Sale\Order
      */
@@ -35,11 +44,11 @@ class TourOrderComponent extends CBitrixComponent
         };
     }
 
-    protected function setBasket($siteId)
+    protected function setBasket($siteId, $post)
     {
         /* basket */
         $basket = \Bitrix\Sale\Basket::create($siteId);
-        $item = $basket->createItem('catalog', 34654);
+        $item = $basket->createItem('catalog', $post['item']);
         $item->setFields(array(
             'QUANTITY' => 1,
             'CURRENCY' => 'RUB',
@@ -73,7 +82,7 @@ class TourOrderComponent extends CBitrixComponent
         $paymentCollection = $this->order->getPaymentCollection();
         $payment = $paymentCollection->createItem();
         $payment->setField('SUM', $this->order->getPrice());
-        $paySystemService = PaySystem\Manager::getObjectById(2); //обычно 1 - это оплата наличными
+        $paySystemService = PaySystem\Manager::getObjectById(3); // Uniteller
 
         $payment->setFields(array(
             'PAY_SYSTEM_ID' => $paySystemService->getField("PAY_SYSTEM_ID"),
@@ -81,27 +90,66 @@ class TourOrderComponent extends CBitrixComponent
         ));
     }
 
-    protected function createVirtualOrder()
+    protected function setProps($post)
     {
-        global $USER;
+        $propertyCollection = $this->order->getPropertyCollection();
+        $propertyCodeToId = array();
 
+        foreach ($propertyCollection as $propertyValue) {
+            $propertyCodeToId[$propertyValue->getField('CODE')] = $propertyValue->getField('ORDER_PROPS_ID');
+        }
+
+        $propertyValue = $propertyCollection->getItemByOrderPropertyId($propertyCodeToId['FIO']);
+        $propertyValue->setValue($post['FIO']);
+
+        $propertyValue = $propertyCollection->getItemByOrderPropertyId($propertyCodeToId['PHONE']);
+        $propertyValue->setValue($post['PHONE']);
+
+        $propertyValue = $propertyCollection->getItemByOrderPropertyId($propertyCodeToId['EMAIL']);
+        $propertyValue->setValue($post['EMAIL']);
+    }
+
+    protected function createVirtualOrder($post)
+    {
         try {
             $siteId = \Bitrix\Main\Context::getCurrent()->getSite();
             $this->order = \Bitrix\Sale\Order::create($siteId, \CSaleUser::GetAnonymousUserID());
             $this->order->setPersonTypeId(1);
 
-            $this->setBasket($siteId);
+            $this->setBasket($siteId, $post);
             $this->setShipment();
             $this->setPayment();
+            $this->setProps($post);
 
             $result = $this->order->save();
             if (!$result->isSuccess())
             {
                 $this->errors[] = $result->getErrors();
             }
+            else
+                return $this->order->getId();
+
         } catch (\Exception $e) {
             $this->errors[] = $e->getMessage();
         }
+    }
+
+    public function createOrderAction($post)
+    {
+        if ($post['PHONE']){
+            $orderId = $this->createVirtualOrder($post);
+
+            $orderObj = \Bitrix\Sale\Order::load($orderId);
+            $paymentCollection = $orderObj->getPaymentCollection();
+            $payment = $paymentCollection[0];
+            $service = PaySystem\Manager::getObjectById($payment->getPaymentSystemId());
+            $context = \Bitrix\Main\Application::getInstance()->getContext();
+            $initResult = $service->initiatePay($payment, $context->getRequest(), PaySystem\BaseServiceHandler::STRING);
+            $buffered_output = $initResult->getTemplate();
+        }
+        return [
+            'html' => $buffered_output
+        ];
     }
 
     /**
@@ -110,11 +158,7 @@ class TourOrderComponent extends CBitrixComponent
      */
     public function executeComponent()
     {
-        /*echo '<pre>';
-        print_r($this->request);
-        echo '</pre>';
-        $this->arResult['errors'] = $this->errors;*/
-        //$this->createVirtualOrder();
+        $this->arResult['errors'] = $this->errors;
 
         $this->includeComponentTemplate();
     }
