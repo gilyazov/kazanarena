@@ -18,7 +18,7 @@ class TourOrderComponent extends CBitrixComponent implements Controllerable
         // Сбрасываем фильтры по-умолчанию (ActionFilter\Authentication и ActionFilter\HttpMethod)
         // Предустановленные фильтры находятся в папке /bitrix/modules/main/lib/engine/actionfilter/
         return [
-            'sendMessage' => [ // Ajax-метод
+            'createOrder' => [ // Ajax-метод
                 'prefilters' => [],
             ],
         ];
@@ -99,14 +99,11 @@ class TourOrderComponent extends CBitrixComponent implements Controllerable
             $propertyCodeToId[$propertyValue->getField('CODE')] = $propertyValue->getField('ORDER_PROPS_ID');
         }
 
-        $propertyValue = $propertyCollection->getItemByOrderPropertyId($propertyCodeToId['FIO']);
-        $propertyValue->setValue($post['FIO']);
-
-        $propertyValue = $propertyCollection->getItemByOrderPropertyId($propertyCodeToId['PHONE']);
-        $propertyValue->setValue($post['PHONE']);
-
-        $propertyValue = $propertyCollection->getItemByOrderPropertyId($propertyCodeToId['EMAIL']);
-        $propertyValue->setValue($post['EMAIL']);
+        $arProp = ['FIO', 'PHONE', 'EMAIL', 'DATE'];
+        foreach ($arProp as $prop){
+            $propertyValue = $propertyCollection->getItemByOrderPropertyId($propertyCodeToId[$prop]);
+            $propertyValue->setValue($post[$prop]);
+        }
     }
 
     protected function createVirtualOrder($post)
@@ -152,6 +149,20 @@ class TourOrderComponent extends CBitrixComponent implements Controllerable
         ];
     }
 
+    protected function getWeekendDays()
+    {
+        $arFilter = Array("IBLOCK_ID"=>39, "ACTIVE"=>"Y", '>=PROPERTY_DATE' => date( "Y-m-d" ));
+        $res = CIBlockElement::GetList(Array(), $arFilter, false, false, ['ID', 'PROPERTY_DATE']);
+        while($ob = $res->GetNextElement())
+        {
+            $arFields = $ob->GetFields();
+
+            $weekDays[] = "'".ConvertDateTime($arFields['PROPERTY_DATE_VALUE'], 'YYYY-MM-DD')."'";
+        }
+
+        return $weekDays;
+    }
+
     /**
      * Base executable method.
      * @return void
@@ -159,6 +170,7 @@ class TourOrderComponent extends CBitrixComponent implements Controllerable
     public function executeComponent()
     {
         $this->arResult['errors'] = $this->errors;
+        $this->arResult['weekDays'] = $this->getWeekendDays();
 
         $this->includeComponentTemplate();
     }

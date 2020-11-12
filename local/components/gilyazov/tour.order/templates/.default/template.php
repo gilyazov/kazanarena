@@ -1,3 +1,9 @@
+<?
+CJSCore::Init(['masked_input']);
+$this->addExternalCss("https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
+?>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <div class="w48 left">
     <div class="rightvacancyform" id="js_form_container" style="display: none">
         <h2>Купить билет на тур по стадиону</h2>
@@ -40,6 +46,19 @@
                 </dt>
                 <dd>
                     <input type="text" id="EMAIL" name="EMAIL" size="25" value="" required="" data-rule-required="true" data-msg-required="Заполните поле.">
+                </dd>
+            </dl>
+            <dl class="lineForm ">
+                <dt>
+                    <label for="DATE">Дата:<span class="red">*</span></label>
+                </dt>
+                <dd>
+                    <input type="text"
+                           id="DATE" name="DATE" size="25" value=""
+                           required="" data-rule-required="true" data-msg-required="Заполните поле.">
+                    <script>
+                        var weekDays = [<?=implode(',', $arResult['weekDays'])?>]
+                    </script>
                 </dd>
             </dl>
 

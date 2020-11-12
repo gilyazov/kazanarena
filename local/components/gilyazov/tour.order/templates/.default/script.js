@@ -32,6 +32,25 @@ BX.ready(function () {
     });
 
     $('#js_tour input[type="radio"]').styler();
+    new BX.MaskedInput({
+        mask: '+7 999 999 99 99', // устанавливаем маску
+        input: BX('PHONE'),
+        placeholder: '_' // символ замены +7 ___ ___ __ __
+    });
+    new BX.MaskedInput({
+        mask: '99.99.9999', // устанавливаем маску
+        input: BX('DATE'),
+        placeholder: '_'
+    });
+    $('#DATE').datepicker({
+        minDate: '0',
+        maxDate: '+3D',
+        dateFormat: 'dd.mm.yy',
+        beforeShowDay: function(date){
+            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            return [ weekDays.indexOf(string) == -1 ]
+        }
+    });
     $("#js_tour").validate();
 });
 
