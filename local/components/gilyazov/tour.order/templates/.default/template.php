@@ -8,7 +8,7 @@ $this->addExternalCss("https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.c
     <div class="rightvacancyform" id="js_form_container" style="display: none">
         <h2>Купить билет на тур по стадиону</h2>
         <form action="" class="form clearfix" id="js_tour" method="post">
-            <dl class="lineForm ">
+            <!--<dl class="lineForm ">
                 <dt>
                     <label for="TICKET">Выбранный билет:<span class="red">*</span></label>
                 </dt>
@@ -22,6 +22,30 @@ $this->addExternalCss("https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.c
                         <input type="radio" id="child" name="item" value="34700">
                         Детский
                     </label>
+                </dd>
+            </dl>-->
+            <dl class="lineForm ">
+                <dt>
+                    <label>Количество взрослых билетов</label>
+                </dt>
+                <dd>
+                    <div class="number">
+                        <span class="minus">-</span>
+                        <input type="text" name="count[34654]" value="1" size="5"/>
+                        <span class="plus">+</span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="lineForm ">
+                <dt>
+                    <label>Количество детских билетов</label>
+                </dt>
+                <dd>
+                    <div class="number">
+                        <span class="minus">-</span>
+                        <input type="text" name="count[34700]" value="0" size="5"/>
+                        <span class="plus">+</span>
+                    </div>
                 </dd>
             </dl>
             <dl class="lineForm ">
@@ -61,10 +85,36 @@ $this->addExternalCss("https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.c
                     </script>
                 </dd>
             </dl>
+            <dl class="lineForm ">
+                <dt>
+                    <label for="TIME">Время:<span class="red">*</span></label>
+                </dt>
+                <dd>
+                    <select name="TIME" id="TIME">
+                        <?for ($i=9; $i<20; $i++):?>
+                            <option value="<?=$i?>"><?=$i?>:00 - <?=($i+1)?>:00</option>
+                        <?endfor;?>
+                    </select>
+                </dd>
+            </dl>
 
             <dl class="lineForm inpFile2">
                  <dd>
-                     <a href="#garanty" class="fancybox">Гарантия безопасности</a>
+                     <?$APPLICATION->IncludeComponent(
+                         "bitrix:main.userconsent.request",
+                         "",
+                         array(
+                             "ID" => 1,
+                             "IS_CHECKED" => 'Y',
+                             "AUTO_SAVE" => "Y",
+                             "IS_LOADED" => $arParams["USER_CONSENT_IS_LOADED"],
+                             "REPLACE" => array(
+                                 'button_caption' => 'Купить',
+                                 'fields' => array('Email', 'Телефон', 'Имя')
+                             ),
+                         )
+                     );?>
+                     <a href="#garanty" class="fancybox" style="padding-top: 10px;">Гарантия безопасности</a>
                 </dd>
             </dl>
 

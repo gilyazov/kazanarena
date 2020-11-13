@@ -37,24 +37,40 @@ class TourOrderComponent extends CBitrixComponent implements Controllerable
 
         if(!Loader::includeModule('sale')){
             $this->errors[] = 'No sale module';
-        };
+        }
 
         if(!Loader::includeModule('catalog')){
             $this->errors[] = 'No catalog module';
-        };
+        }
     }
 
     protected function setBasket($siteId, $post)
     {
         /* basket */
         $basket = \Bitrix\Sale\Basket::create($siteId);
-        $item = $basket->createItem('catalog', $post['item']);
-        $item->setFields(array(
-            'QUANTITY' => 1,
-            'CURRENCY' => 'RUB',
-            'LID' => $siteId,
-            'PRODUCT_PROVIDER_CLASS' => 'CCatalogProductProvider',
-        ));
+        $count = array_sum($post['count']);
+        if ($count <= 5){
+            // Групповой тур
+            $item = $basket->createItem('catalog', 38034);
+            $item->setFields(array(
+                'QUANTITY' => 1,
+                'CURRENCY' => 'RUB',
+                'LID' => $siteId,
+                'PRODUCT_PROVIDER_CLASS' => 'CCatalogProductProvider',
+            ));
+        }
+        else{
+            foreach ($post['count'] as $key => $count){
+                $item = $basket->createItem('catalog', $key);
+                $item->setFields(array(
+                    'QUANTITY' => $count,
+                    'CURRENCY' => 'RUB',
+                    'LID' => $siteId,
+                    'PRODUCT_PROVIDER_CLASS' => 'CCatalogProductProvider',
+                ));
+            }
+        }
+
         $this->order->setBasket($basket);
     }
 
@@ -99,7 +115,7 @@ class TourOrderComponent extends CBitrixComponent implements Controllerable
             $propertyCodeToId[$propertyValue->getField('CODE')] = $propertyValue->getField('ORDER_PROPS_ID');
         }
 
-        $arProp = ['FIO', 'PHONE', 'EMAIL', 'DATE'];
+        $arProp = ['FIO', 'PHONE', 'EMAIL', 'DATE', 'TIME'];
         foreach ($arProp as $prop){
             $propertyValue = $propertyCollection->getItemByOrderPropertyId($propertyCodeToId[$prop]);
             $propertyValue->setValue($post[$prop]);
@@ -157,7 +173,7 @@ class TourOrderComponent extends CBitrixComponent implements Controllerable
         {
             $arFields = $ob->GetFields();
 
-            $weekDays[] = "'".ConvertDateTime($arFields['PROPERTY_DATE_VALUE'], 'YYYY-MM-DD')."'";
+            $weekDays[] = "'".$arFields['PROPERTY_DATE_VALUE']."'";
         }
 
         return $weekDays;

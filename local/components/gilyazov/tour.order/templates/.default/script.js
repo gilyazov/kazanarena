@@ -6,9 +6,9 @@ BX.ready(function () {
         function(event){
             event.preventDefault();
 
-            itemSelected = BX.data(this, 'item');
+            /*itemSelected = BX.data(this, 'item');
             BX.adjust(BX(itemSelected), {props: {checked: true}});
-            $('[name=item]').trigger('refresh');
+            $('[name=item]').trigger('refresh');*/
 
             BX.show(BX('js_form_container'));
         }
@@ -31,7 +31,7 @@ BX.ready(function () {
         );
     });
 
-    $('#js_tour input[type="radio"]').styler();
+    $('#js_tour input[type="radio"], #js_tour input[type="checkbox"], #js_tour select').styler();
     new BX.MaskedInput({
         mask: '+7 999 999 99 99', // устанавливаем маску
         input: BX('PHONE'),
@@ -47,11 +47,26 @@ BX.ready(function () {
         maxDate: '+3D',
         dateFormat: 'dd.mm.yy',
         beforeShowDay: function(date){
-            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            var string = jQuery.datepicker.formatDate('dd.mm.yy', date);
             return [ weekDays.indexOf(string) == -1 ]
         }
     });
     $("#js_tour").validate();
+
+    $('.minus').click(function () {
+        var $input = $(this).parent().find('input');
+        var count = parseInt($input.val()) - 1;
+        count = count < 0 ? 0 : count;
+        $input.val(count);
+        $input.change();
+        return false;
+    });
+    $('.plus').click(function () {
+        var $input = $(this).parent().find('input');
+        $input.val(parseInt($input.val()) + 1);
+        $input.change();
+        return false;
+    });
 });
 
 

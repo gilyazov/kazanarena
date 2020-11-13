@@ -7,3 +7,37 @@
     right: 0;
     top: 25px;
 }
+footer{
+    z-index: 0 !important;
+}
+article .rightvacancyform{
+    overflow: visible
+}
+form .lineForm dd{
+    z-index: unset;
+}
+.number{
+    display: flex;
+    align-items: center;
+}
+.number span{
+    background: #00ab88;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    align-items: center;
+}
+.number .minus{
+    margin-right: 10px;
+}
+.number .plus{
+    margin-left: 10px;
+}
+.lineForm .number input[type=text]{
+    width: 5%;
+    text-align: center;
+}
