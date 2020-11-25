@@ -49,7 +49,10 @@ class TourOrderComponent extends CBitrixComponent implements Controllerable
         /* basket */
         $basket = \Bitrix\Sale\Basket::create($siteId);
         $count = array_sum($post['count']);
-        if ($count <= 5){
+        foreach ($post['count'] as $key => $count){
+            $orderPrice += CPrice::GetBasePrice($key)['PRICE'] * $count;
+        }
+        if ($orderPrice < 2000){
             // Групповой тур
             $item = $basket->createItem('catalog', 38034);
             $item->setFields(array(

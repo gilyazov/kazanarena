@@ -125,4 +125,20 @@ class Payment
             }
         }
     }
+
+    public function OnSaleOrderSendEmail(&$event, &$lid, &$arFields, &$message_id)
+    {
+        if ($event === "SALE_NEW_ORDER") {
+            if ($arFields['ORDER_ID'] > 0) {
+                \Bitrix\Main\Loader::includeModule('sale');
+
+                $order = \Bitrix\Sale\Order::load($arFields['ORDER_ID']);
+                $propertyCollection = $order->getPropertyCollection();
+
+                $arFields['PAYER_NAME'] = $propertyCollection->getPayerName()->getValue();
+                $arFields['PAYER_PHONE'] = $propertyCollection->getPhone()->getValue();
+                $arFields['PAYER_EMAIL'] = $propertyCollection->getUserEmail()->getValue();
+            }
+        }
+    }
 }

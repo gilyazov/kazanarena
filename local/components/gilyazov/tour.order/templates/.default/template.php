@@ -31,7 +31,7 @@ $this->addExternalCss("https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.c
                 <dd>
                     <div class="number">
                         <span class="minus">-</span>
-                        <input type="text" name="count[34654]" value="1" size="5"/>
+                        <input type="text" data-sum="350" data-text="Взрослых билетов" name="count[34654]" value="1" size="5"/>
                         <span class="plus">+</span>
                     </div>
                 </dd>
@@ -43,9 +43,16 @@ $this->addExternalCss("https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.c
                 <dd>
                     <div class="number">
                         <span class="minus">-</span>
-                        <input type="text" name="count[34700]" value="0" size="5"/>
+                        <input type="text" data-sum="300" data-text="Детских билетов" name="count[34700]" value="0" size="5"/>
                         <span class="plus">+</span>
                     </div>
+                </dd>
+            </dl>
+            <dl style="padding-bottom: 20px">
+                <dt><label for="">Состав заказа:</label></dt>
+                <dd class="js-basket">
+                    <strong>Групповой тур* — 2000руб.</strong>
+                    <small>*минимальная стоимость тура 2000руб.</small>
                 </dd>
             </dl>
             <dl class="lineForm ">
@@ -91,6 +98,7 @@ $this->addExternalCss("https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.c
                 </dt>
                 <dd>
                     <select name="TIME" id="TIME">
+                        <option value="">Выберите временной слот</option>
                         <?for ($i=9; $i<20; $i++):?>
                             <option value="<?=$i?>"><?=$i?>:00 - <?=($i+1)?>:00</option>
                         <?endfor;?>

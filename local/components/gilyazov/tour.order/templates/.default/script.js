@@ -1,15 +1,26 @@
+function setTimeOptions(dateText){
+    var today = new Date();
+    if (dateText === today.toLocaleDateString()){
+        let hours = today.getHours();
+        if (hours >= 9){
+            for (let i=9; i<= (hours + 1); i++){
+                $("#TIME option[value=" + i + "]").attr('disabled', 'disabled');
+            }
+        }
+    }
+    else{
+        for (let i=9; i< 20; i++){
+            $("#TIME option[value=" + i + "]").removeAttr('disabled');
+        }
+    }
+    $('#TIME').trigger('refresh');
+}
 BX.ready(function () {
-
     let itemSelected = 'adult';
     BX.bindDelegate(
         document.body, 'click', {className: 'js-buy-btn' },
         function(event){
             event.preventDefault();
-
-            /*itemSelected = BX.data(this, 'item');
-            BX.adjust(BX(itemSelected), {props: {checked: true}});
-            $('[name=item]').trigger('refresh');*/
-
             BX.show(BX('js_form_container'));
         }
     );
@@ -34,8 +45,7 @@ BX.ready(function () {
     $('#js_tour input[type="radio"], #js_tour input[type="checkbox"], #js_tour select').styler();
     new BX.MaskedInput({
         mask: '+7 999 999 99 99', // устанавливаем маску
-        input: BX('PHONE'),
-        placeholder: '_' // символ замены +7 ___ ___ __ __
+        input: BX('PHONE')
     });
     new BX.MaskedInput({
         mask: '99.99.9999', // устанавливаем маску
@@ -46,9 +56,13 @@ BX.ready(function () {
         minDate: '0',
         maxDate: '+3D',
         dateFormat: 'dd.mm.yy',
+        firstDay: 1,
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('dd.mm.yy', date);
             return [ weekDays.indexOf(string) == -1 ]
+        },
+        onSelect: function(dateText) {
+            setTimeOptions(dateText);
         }
     });
     $("#js_tour").validate();
@@ -66,6 +80,25 @@ BX.ready(function () {
         $input.val(parseInt($input.val()) + 1);
         $input.change();
         return false;
+    });
+
+    $('.number input').change(function (){
+        let sum = 0
+        let basketText = ''
+        $('.number input').each(function (){
+            sum += this.value * $(this).data('sum')
+        })
+
+        if (sum < 2000){
+            $('.js-basket').html('<strong>Групповой тур* — 2000руб.</strong><small>*минимальная стоимость тура 2000руб.</small>');
+        }
+        else{
+            $('.number input').each(function (){
+                basketText += $(this).data('text') + ' на сумму <strong>' + this.value * $(this).data('sum') + 'руб.</strong><br>'
+            })
+            $('.js-basket').html(basketText)
+        }
+
     });
 });
 
